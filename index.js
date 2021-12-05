@@ -13,6 +13,19 @@ input.addEventListener("change", function () {
   if (value < 1) this.value = 1;
   if (value > 20) this.value = 20;
 });
+input.addEventListener("input", (e) => {
+  let { value } = e.target;
+});
+
+// const limitNum = function limitInputNum(input) {
+//   if (input.value < 1) input.value = 1;
+//   if (input.value > 20) input.value = 20;
+// };
+
+function randomNum(minNum, maxNum) {
+  return Math.floor(Math.random() * maxNum) + minNum;
+}
+
 container.appendChild(input);
 
 const button = document.createElement("button");
@@ -20,20 +33,17 @@ button.textContent = "Let's guess";
 button.className = "btn";
 container.appendChild(button);
 
-button.addEventListener("submit", function (e) {
-  e.preventDefault();
+// button.addEventListener("submit", function (e) {
+//   e.preventDefault();
+// });
+
+const randomNumber = randomNum();
+document.getElementsByClassName("input").innerHTML = randomNumber;
+//
+button.addEventListener("click", () => {
+  randomNumber = randomNum(1, 20);
+  guessedNumber.innerText = randomNumber;
 });
-
-function limitInputNum(input) {
-  if (input.value < 1) input.value = 1;
-  if (input.value > 20) input.value = 20;
-}
-
-function randomInput() {
-  return Math.floor(Math.random() * 20) + 1;
-}
-const randomNumber = randomInput();
-document.getElementsByClassName("input").innerHTML = randomInput;
 //the guess
 
 const div = document.createElement("div");
@@ -43,12 +53,12 @@ const h2 = document.createElement("h2");
 h2.textContent = "This is my guess";
 div.appendChild(h2);
 
-let guessedNumber = document.createElement("input");
-guessedNumber.className = "input-bottom";
-guessedNumber.defaultValue = 0;
+let guessedNumber = document.createElement("p");
+guessedNumber.className = "guessedNumber";
+guessedNumber.textContent = "0";
 div.appendChild(guessedNumber);
-
 document.body.appendChild(div);
+
 const divBtns = document.createElement("div");
 divBtns.id = "btnsDiv";
 
@@ -80,14 +90,18 @@ function CounterW() {
   clickWrong.innerHTML = countWrong;
 }
 
+const message = document.createElement("p");
+
 document.body.appendChild(divBtns);
 
-// function guessNum(a, b) {
-//   numA = document.getElementsByClassName(a).value;
-//   numB = document.getElementsByClassName(b).value;
-//   if (numA === numB) {
-//     return "It took me {CounterC} guesses to have it right.";
-//   } else if (numA != numB) {
-//     return "You lie, the numbers match, it took me {CounterW} guesses";
-//   }
-// }
+let guessCount = 1;
+function checkGuess() {
+  let userGuess = Number(input.value);
+  if (guessCount == 1) {
+    guessedNumber.textContent = "Previous guesses : ";
+  }
+  guessedNumber.textContent += userGuess + " ";
+
+  if (userGuess === randomNumber) {
+  }
+}
